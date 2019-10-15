@@ -57,6 +57,11 @@ mvn spring-boot:run
 
 You can select if the CSV file that you willing to import is including CSV header, also you can specify the separator that your CSV file has, then you can select a CSV file to import, the process will take less that 5 seconds on files with 100,000 records and it's tested on (os:ubuntu 19.04, ram:16GB, cpu: Intel Core i7, ssd:240gb).
 
+![Screenshot](sample/Screenshot from 2019-10-15 11-06-14.png)
+
 **2. http://localhost:6067/search**
 
 Here you can search about the files that you have already import, and see the summary of its.
+
+![Screenshot](sample/Screenshot from 2019-10-15 11-06-22.png)
+
