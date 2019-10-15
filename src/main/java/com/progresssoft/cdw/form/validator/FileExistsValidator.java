@@ -16,7 +16,7 @@ import com.progresssoft.cdw.service.ImportedFileService;
  *
  */
 
-public class FileExistedValidator implements ConstraintValidator<FileExisted, MultipartFile> {
+public class FileExistsValidator implements ConstraintValidator<FileExisted, MultipartFile> {
 
 	@Autowired
 	ImportedFileService importedFileService;

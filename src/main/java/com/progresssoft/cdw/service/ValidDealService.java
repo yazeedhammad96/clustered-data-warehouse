@@ -1,9 +1,8 @@
 package com.progresssoft.cdw.service;
 
 /**
- * @author Yazeed Hammad - yazeed.hammad@erabia.com
- *
- *         Oct 13, 2019
+ * @author Yazeed 
+ * 
  */
 
 public interface ValidDealService {

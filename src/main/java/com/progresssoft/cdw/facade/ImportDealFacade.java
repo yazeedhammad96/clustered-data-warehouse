@@ -8,9 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.progresssoft.cdw.dto.UploadSummaryDTO;
 
 /**
- * @author Yazeed Hammad - yazeed.hammad@erabia.com
- *
- *         Oct 13, 2019
+ * @author Yazeed
+ * 
  */
 
 public interface ImportDealFacade {

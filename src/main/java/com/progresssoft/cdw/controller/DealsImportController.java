@@ -33,7 +33,17 @@ import com.progresssoft.cdw.form.CSVFileForm;
 @EnableWebMvc
 public class DealsImportController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DealsImportController.class);
+	private static final String NOT_FOUND = "notFound";
+
+	private static final String SUCCESS = "success";
+
+	private static final String CSV_FILE_FORM = "csvFileForm";
+
+	private static final String UPLOAD_SUMMARY_VIEW = "upload-summary";
+
+	private static final String UPLOAD_SUMMARY_FORM = "uploadSummary";
+
+	private static final String UPLOAD_PAGE_VIEW = "upload-page";
 
 	private static final String GET_SEARCH_FILE = "/search/file";
 
@@ -42,6 +52,9 @@ public class DealsImportController {
 	private static final String GET_SEARCH = "/search";
 
 	private static final String GET_UPLOAD = "/upload";
+	
+	private static final Logger LOG = LoggerFactory.getLogger(DealsImportController.class);
+
 
 	@Autowired
 	private ImportDealFacade importDealFacade;
@@ -51,8 +64,8 @@ public class DealsImportController {
 	public ModelAndView showUpload() {
 
 		final ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("upload-page");
-		modelAndView.addObject("csvFileForm", new CSVFileForm());
+		modelAndView.setViewName(UPLOAD_PAGE_VIEW);
+		modelAndView.addObject(CSV_FILE_FORM, new CSVFileForm());
 		
 		return modelAndView;
 	}
@@ -61,29 +74,17 @@ public class DealsImportController {
 	public ModelAndView showSearch() {
 
 		final ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("upload-summary");
-
-		return modelAndView;
-	}
-
-	@ExceptionHandler(Exception.class)
-	public ModelAndView handleException(Exception e) {
-		LOG.error("Failed importing file.", e);
-
-		final ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("upload-page");
-		modelAndView.addObject("csvFileForm", new CSVFileForm());
-		modelAndView.addObject("error", true);
+		modelAndView.setViewName(UPLOAD_SUMMARY_VIEW);
 
 		return modelAndView;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = POST_UPLOAD_FILE)
-	public ModelAndView uploadFile(@ModelAttribute("csvFileForm") @Valid CSVFileForm csvFileForm,
+	public ModelAndView uploadFile(@ModelAttribute(CSV_FILE_FORM) @Valid CSVFileForm csvFileForm,
 			BindingResult bindingResult, Model model) throws FileNotFoundException, IOException {
 
 		if (bindingResult.hasErrors()) {
-			return new ModelAndView("upload-page");
+			return new ModelAndView(UPLOAD_PAGE_VIEW);
 		}
 
 		importDealFacade.importCSVDeals(csvFileForm.getFile(),
@@ -91,10 +92,10 @@ public class DealsImportController {
 		UploadSummaryDTO fileSummary = importDealFacade.getFileSummary(csvFileForm.getFile().getOriginalFilename());
 		final ModelAndView modelAndView = new ModelAndView();
 
-		modelAndView.setViewName("upload-page");
-		modelAndView.addObject("uploadSummary", fileSummary);
-		modelAndView.addObject("csvFileForm", new CSVFileForm());
-		modelAndView.addObject("success", true);
+		modelAndView.setViewName(UPLOAD_PAGE_VIEW);
+		modelAndView.addObject(UPLOAD_SUMMARY_FORM, fileSummary);
+		modelAndView.addObject(CSV_FILE_FORM, new CSVFileForm());
+		modelAndView.addObject(SUCCESS, true);
 
 		return modelAndView;
 	}
@@ -106,12 +107,24 @@ public class DealsImportController {
 
 		UploadSummaryDTO fileSummary = importDealFacade.getFileSummary(fileName);
 		if (fileSummary == null) {
-			modelAndView.setViewName("upload-summary");
-			modelAndView.addObject("notFound", true);
+			modelAndView.setViewName(UPLOAD_SUMMARY_VIEW);
+			modelAndView.addObject(NOT_FOUND, true);
 		}
-		modelAndView.setViewName("upload-summary");
-		modelAndView.addObject("uploadSummary", fileSummary);
-		modelAndView.addObject("success", true);
+		modelAndView.setViewName(UPLOAD_SUMMARY_VIEW);
+		modelAndView.addObject(UPLOAD_SUMMARY_FORM, fileSummary);
+		modelAndView.addObject(SUCCESS, true);
+
+		return modelAndView;
+	}
+	
+	@ExceptionHandler(Exception.class)
+	public ModelAndView handleException(Exception e) {
+		LOG.error(String.format("Failed importing file, exeption message[%s].", e.getMessage()));
+
+		final ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName(UPLOAD_PAGE_VIEW);
+		modelAndView.addObject(CSV_FILE_FORM, new CSVFileForm());
+		modelAndView.addObject("error", true);
 
 		return modelAndView;
 	}

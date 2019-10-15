@@ -1,7 +1,11 @@
 package com.progresssoft.cdw.dao;
 
 import com.progresssoft.cdw.entity.AccumulativeDealsOfCurrency;
-
+/**
+ * 
+ * @author Yazeed
+ *
+ */
 public interface AccumulativeDealsOfCurrencyDao {
 
 	public void add(AccumulativeDealsOfCurrency accumulativeDealsOfCurrency);

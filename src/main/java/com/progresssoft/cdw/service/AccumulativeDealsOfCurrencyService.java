@@ -2,8 +2,13 @@ package com.progresssoft.cdw.service;
 
 import com.progresssoft.cdw.entity.AccumulativeDealsOfCurrency;
 
-public interface AccumulativeDealsOfCurrencyService {
+/**
+ * 
+ * @author Yazeed
+ *
+ */
 
+public interface AccumulativeDealsOfCurrencyService {
 
 	public void add(AccumulativeDealsOfCurrency accumulativeDealsOfCurrency);
 	

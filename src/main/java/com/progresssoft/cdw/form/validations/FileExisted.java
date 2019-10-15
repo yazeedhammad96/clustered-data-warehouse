@@ -8,14 +8,14 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import com.progresssoft.cdw.form.validator.FileExistedValidator;
+import com.progresssoft.cdw.form.validator.FileExistsValidator;
 
 /**
  * 
  * @author Yazeed
  *
  */
-@Constraint(validatedBy = FileExistedValidator.class)
+@Constraint(validatedBy = FileExistsValidator.class)
 @Target( { ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FileExisted {

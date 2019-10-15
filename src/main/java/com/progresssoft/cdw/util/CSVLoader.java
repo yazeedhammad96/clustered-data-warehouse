@@ -27,12 +27,17 @@ public class CSVLoader {
 	private static final Logger LOG = LoggerFactory.getLogger(CSVLoader.class);
 
 	/**
-	 * Load all data from CSV file
+	 * Load all data from a CSV file.
 	 * 
-	 * @return Map<Integer, List<String>> of all data on the csv file
-	 * @throws IOException
+	 * @param path
+	 * @param separator
+	 * @param numOfcols
+	 * @param ignoreHeader
+	 * @param csvValidator
+	 * @param consumerRow
+	 * @return Map<RowType, List<String[]>>
 	 * @throws FileNotFoundException
-	 * @throws CSVException
+	 * @throws IOException
 	 */
 	public static Map<RowType, List<String[]>> getAll(Path path, String separator, Integer numOfcols,
 			boolean ignoreHeader, CSVValidator csvValidator, Consumer<String[]> consumerRow)
@@ -66,10 +71,12 @@ public class CSVLoader {
 	 * @param numOfcols
 	 * @param includeHeader
 	 * @param csvValidator
-	 * @return
+	 * @param consumerValidRow
+	 * @return Map<RowType, List<String[]>>
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
+	
 	private static Map<RowType, List<String[]>> loadRecords(Path path, String separator, Integer numOfcols,
 			boolean includeHeader, CSVValidator csvValidator, Consumer<String[]> consumerValidRow)
 			throws FileNotFoundException, IOException {

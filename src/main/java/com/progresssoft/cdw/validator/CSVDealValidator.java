@@ -44,22 +44,22 @@ public class CSVDealValidator implements CSVValidator {
 		}
 
 		if (!ISOCurrencyCode.CURRENCY_CODES.contains(row[1])) {
-			LOG.error(String.format("Invalid Ordering Currency Code for deal with id [%s]", row[0]));
+			LOG.error(String.format("Invalid Ordering Currency Code [%s] for deal with id [%s]",row[1], row[0]));
 			return false;
 		}
 
 		if (!ISOCurrencyCode.CURRENCY_CODES.contains(row[2])) {
-			LOG.error(String.format("Invalid To Currency Code for deal with id [%s]", row[0]));
+			LOG.error(String.format("Invalid To Currency Code [%s] for deal with id [%s]",row[2], row[0]));
 			return false;
 		}
 
 		if (!isValidTimestamp(row[3])) {
-			LOG.error(String.format("Invalid Timestamp for deal with id [%s]", row[0]));
+			LOG.error(String.format("Invalid Timestamp [%s] for deal with id [%s]",row[3], row[0]));
 			return false;
 		}
 
 		if (!isValidAmount(row[4])) {
-			LOG.error(String.format("Invalid Amount for deal with id [%s]", row[0]));
+			LOG.error(String.format("Invalid Amount [%s] for deal with id [%s]",row[4], row[0]));
 			return false;
 		}
 

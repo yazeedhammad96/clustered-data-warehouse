@@ -15,10 +15,11 @@ import com.progresssoft.cdw.service.ImportDealService;
 import com.progresssoft.cdw.service.ImportedFileService;
 
 /**
- * @author Yazeed Hammad - yazeed.hammad@erabia.com
+ * @author Yazeed
  *
- *         Oct 13, 2019
+ * 
  */
+
 @Component
 public class DefaultImportDealFacade implements ImportDealFacade {
 
@@ -45,9 +46,10 @@ public class DefaultImportDealFacade implements ImportDealFacade {
 	}
 
 	@Override
-	public void importCSVDeals(MultipartFile file, Boolean includeHeader, String sperator)
+	public void importCSVDeals(MultipartFile uploadedFile, Boolean includeHeader, String sperator)
 			throws FileNotFoundException, IOException {
-
-		importDealService.importCSVDeals(file, includeHeader, sperator);
+		if (uploadedFile == null)
+			throw new IllegalArgumentException("uploadedFile can't be null");
+		importDealService.importCSVDeals(uploadedFile, includeHeader, sperator);
 	}
 }
