@@ -60,6 +60,11 @@ public class DealsImportController {
 	private ImportDealFacade importDealFacade;
 
 
+	/**
+	 * Get method to show the upload page 
+	 * 
+	 * @return ModelAndView
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = GET_UPLOAD)
 	public ModelAndView showUpload() {
 
@@ -70,6 +75,11 @@ public class DealsImportController {
 		return modelAndView;
 	}
 
+	/**
+	 * Get method to show the search page 
+	 * 
+	 * @return ModelAndView
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = GET_SEARCH)
 	public ModelAndView showSearch() {
 
@@ -79,6 +89,16 @@ public class DealsImportController {
 		return modelAndView;
 	}
 
+	/**
+	 * Post method to let the client upload a file, then proccess it, and show him the result of the uploading a CSV file.
+	 * 
+	 * @param csvFileForm
+	 * @param bindingResult
+	 * @param model
+	 * @return ModelAndView 
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	@RequestMapping(method = RequestMethod.POST, value = POST_UPLOAD_FILE)
 	public ModelAndView uploadFile(@ModelAttribute(CSV_FILE_FORM) @Valid CSVFileForm csvFileForm,
 			BindingResult bindingResult, Model model) throws FileNotFoundException, IOException {
@@ -100,6 +120,15 @@ public class DealsImportController {
 		return modelAndView;
 	}
 
+	/**
+	 * Get method to let the user inquire about the result of any imported file.
+	 * 
+	 * @param fileName
+	 * @param model
+	 * @return ModelAndView
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = GET_SEARCH_FILE)
 	public ModelAndView uploadFile(@RequestParam String fileName, Model model)
 			throws FileNotFoundException, IOException {
@@ -117,9 +146,15 @@ public class DealsImportController {
 		return modelAndView;
 	}
 	
+	/**
+	 * To handle any exception that throwing during the importing process.
+	 * 
+	 * @param exception
+	 * @return ModelAndView
+	 */
 	@ExceptionHandler(Exception.class)
-	public ModelAndView handleException(Exception e) {
-		LOG.error(String.format("Failed importing file, exeption message[%s].", e.getMessage()));
+	public ModelAndView handleException(Exception exception) {
+		LOG.error(String.format("Failed importing file, exeption message[%s].", exception.getMessage()));
 
 		final ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName(UPLOAD_PAGE_VIEW);

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.progresssoft.cdw.dao.InvalidDealDao;
-import com.progresssoft.cdw.entity.NotValidDeal;
+import com.progresssoft.cdw.entity.InvalidDeal;
 
 /**
  * 
@@ -19,14 +19,15 @@ import com.progresssoft.cdw.entity.NotValidDeal;
 @Repository
 public class DefaultInvalidValidDealDao implements InvalidDealDao {
 
-
-	private static final String GET_INVALID_DEAL_QUERY = "FROM NotValidDeal V WHERE V.dealId = '%s'";
+	private static final String GET_INVALID_DEAL_QUERY = "FROM InvalidDeal V WHERE V.dealId = '%s'";
 	@Autowired
 	private SessionFactory sessionFactory;
 
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public NotValidDeal get(String dealId) {
+	public InvalidDeal get(String dealId) {
 		// TODO Auto-generated method stub
 		StatelessSession statelessSession = sessionFactory.openStatelessSession();
 		statelessSession.beginTransaction();
@@ -36,11 +37,14 @@ public class DefaultInvalidValidDealDao implements InvalidDealDao {
 
 		statelessSession.close();
 
-		return list == null || list.get(0) == null ? null : (NotValidDeal) list.get(0);
+		return list == null || list.get(0) == null ? null : (InvalidDeal) list.get(0);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public void add(NotValidDeal deal) {
+	public void add(InvalidDeal deal) {
 		StatelessSession statelessSession = sessionFactory.openStatelessSession();
 		statelessSession.beginTransaction();
 		statelessSession.insert(deal);
@@ -49,8 +53,11 @@ public class DefaultInvalidValidDealDao implements InvalidDealDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public void delete(NotValidDeal deal) {
+	public void delete(InvalidDeal deal) {
 		StatelessSession statelessSession = sessionFactory.openStatelessSession();
 		statelessSession.beginTransaction();
 		statelessSession.delete(deal);

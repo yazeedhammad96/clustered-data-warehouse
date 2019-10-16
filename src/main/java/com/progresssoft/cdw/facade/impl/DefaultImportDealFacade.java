@@ -29,6 +29,9 @@ public class DefaultImportDealFacade implements ImportDealFacade {
 	@Autowired
 	ImportedFileService importedFileService;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public UploadSummaryDTO getFileSummary(String fileName) {
 		if (StringUtils.isEmpty(fileName))
@@ -45,6 +48,9 @@ public class DefaultImportDealFacade implements ImportDealFacade {
 		return summaryDTO;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void importCSVDeals(MultipartFile uploadedFile, Boolean includeHeader, String sperator)
 			throws FileNotFoundException, IOException {

@@ -1,6 +1,6 @@
 package com.progresssoft.cdw.dao;
 
-import com.progresssoft.cdw.entity.NotValidDeal;
+import com.progresssoft.cdw.entity.InvalidDeal;
 
 /**
  * 
@@ -9,10 +9,16 @@ import com.progresssoft.cdw.entity.NotValidDeal;
  */
 public interface InvalidDealDao {
 
-	public NotValidDeal get(String dealId);
+	/**
+	 * To get an invalid file
+	 * 
+	 * @param dealId
+	 * @return
+	 */
+	public InvalidDeal get(String dealId);
 
-	public void add(NotValidDeal deal);
+	public void add(InvalidDeal deal);
 
-	public void delete(NotValidDeal deal);
+	public void delete(InvalidDeal deal);
 
 }

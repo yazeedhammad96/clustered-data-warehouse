@@ -25,6 +25,9 @@ public class DefaultAccumulativeDealsOfCurrencyDao implements AccumulativeDealsO
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void add(AccumulativeDealsOfCurrency accumulativeDealsOfCurrency) {
 		StatelessSession statelessSession = sessionFactory.openStatelessSession();
@@ -32,10 +35,12 @@ public class DefaultAccumulativeDealsOfCurrencyDao implements AccumulativeDealsO
 		statelessSession.insert(accumulativeDealsOfCurrency);
 		statelessSession.getTransaction().commit();
 		statelessSession.close();
-		
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update(AccumulativeDealsOfCurrency accumulativeDealsOfCurrency) {
 		StatelessSession statelessSession = sessionFactory.openStatelessSession();
@@ -46,19 +51,24 @@ public class DefaultAccumulativeDealsOfCurrencyDao implements AccumulativeDealsO
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public AccumulativeDealsOfCurrency getByCurrencyISOCode(String isoCode) {
 		StatelessSession statelessSession = sessionFactory.openStatelessSession();
 		statelessSession.beginTransaction();
-		Query createQuery = statelessSession
-				.createQuery(String.format(GET_ACC_DEAL_QUERY, isoCode));
+		Query createQuery = statelessSession.createQuery(String.format(GET_ACC_DEAL_QUERY, isoCode));
 		List<?> result = createQuery.list();
 		statelessSession.close();
 		if (result == null || result.isEmpty())
 			return null;
-		return (AccumulativeDealsOfCurrency) result.get(0); 
+		return (AccumulativeDealsOfCurrency) result.get(0);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void delete(AccumulativeDealsOfCurrency accumulativeDealsOfCurrency) {
 		StatelessSession statelessSession = sessionFactory.openStatelessSession();
@@ -66,7 +76,7 @@ public class DefaultAccumulativeDealsOfCurrencyDao implements AccumulativeDealsO
 		statelessSession.delete(accumulativeDealsOfCurrency);
 		statelessSession.getTransaction().commit();
 		statelessSession.close();
-		
+
 	}
 
 }

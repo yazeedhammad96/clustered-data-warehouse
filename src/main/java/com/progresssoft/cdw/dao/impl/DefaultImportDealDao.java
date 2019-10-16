@@ -30,15 +30,18 @@ public class DefaultImportDealDao implements ImportDealDao {
 
 	private static final String INVALID_DEAL_TABLE_NAME = "not_valid_deal";
 
-	private static final String  INSERT_QUERY = "INSERT INTO `bloomberg_deals`.`%s`(`dealId`,`fromCurrencyISOCode`,`toCurrencyISOCode`,`dealTimestamp`,`dealAmountInOrderingCurrency`,`sourceFile`)VALUES";
-	
+	private static final String INSERT_QUERY = "INSERT INTO `bloomberg_deals`.`%s`(`dealId`,`fromCurrencyISOCode`,`toCurrencyISOCode`,`dealTimestamp`,`dealAmountInOrderingCurrency`,`sourceFile`)VALUES";
+
 	private static final String VALUES_QUERY = "('%s','%s','%s','%s','%s','%s')";
-	
+
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public void importCSVDeals(Map<RowType, List<String[]>> deals, String sourceName) {
+	public void insertCSVDeals(Map<RowType, List<String[]>> deals, String sourceName) {
 
 		StatelessSession statelessSession = sessionFactory.openStatelessSession();
 		statelessSession.beginTransaction();
@@ -50,20 +53,20 @@ public class DefaultImportDealDao implements ImportDealDao {
 		statelessSession.getTransaction().commit();
 	}
 
-	private void insertBulkOfDeals(String tableName, List<String[]> deals, String sourceName, StatelessSession statelessSession) {
+	private void insertBulkOfDeals(String tableName, List<String[]> deals, String sourceName,
+			StatelessSession statelessSession) {
 		final int[] count = { 0 };
 		StringBuilder builder = new StringBuilder(String.format(INSERT_QUERY, tableName));
-		
+
 		int length = builder.length();
 		deals.stream().forEach(row -> {
 			count[0]++;
-			builder.append(String.format(VALUES_QUERY, row[0], row[1], row[2], row[3], row[4],
-					sourceName));
+			builder.append(String.format(VALUES_QUERY, row[0], row[1], row[2], row[3], row[4], sourceName));
 			if (count[0] % 3000 == 0) {
 				SQLQuery nativeQuery = statelessSession.createSQLQuery(builder.toString());
 				nativeQuery.executeUpdate();
 				builder.setLength(0);
-			builder.append(String.format(INSERT_QUERY, tableName));
+				builder.append(String.format(INSERT_QUERY, tableName));
 			} else
 				builder.append(",");
 		});

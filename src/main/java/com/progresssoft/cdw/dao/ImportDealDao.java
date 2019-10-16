@@ -13,5 +13,11 @@ import com.progresssoft.cdw.enums.RowType;
 
 public interface ImportDealDao {
 
-	public void importCSVDeals(Map<RowType, List<String[]>> deals,String sourceName);
+	/**
+	 * To insert a deals from a map that contains valid & invalid deals to the data source.
+	 * 
+	 * @param deals
+	 * @param sourceName
+	 */
+	public void insertCSVDeals(Map<RowType, List<String[]>> deals,String sourceName);
 }

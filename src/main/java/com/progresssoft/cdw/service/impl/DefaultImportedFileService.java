@@ -25,6 +25,9 @@ public class DefaultImportedFileService implements ImportedFileService {
 	@Autowired
 	private ImportedFileDao importedFileDao;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void add(ImportedFile importedFile) {
 		if (importedFile == null || StringUtils.isEmpty(importedFile.getName())) {
@@ -34,6 +37,9 @@ public class DefaultImportedFileService implements ImportedFileService {
 		importedFileDao.add(importedFile);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public ImportedFile getByName(String name) {
 		if (StringUtils.isEmpty(name)) {
@@ -43,14 +49,17 @@ public class DefaultImportedFileService implements ImportedFileService {
 		return importedFileDao.getByName(name);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void delete(ImportedFile importedFile) {
-		if (importedFile==null||StringUtils.isEmpty(importedFile.getName())) {
+		if (importedFile == null || StringUtils.isEmpty(importedFile.getName())) {
 			throw new IllegalArgumentException("importedFile or it's name can't be null or empty");
 		}
 		LOG.info(String.format("Delete ImportedFile with name [%s]", importedFile.getName()));
 		importedFileDao.delete(importedFile);
-		
+
 	}
 
 }

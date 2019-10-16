@@ -54,10 +54,13 @@ public class DefaultImportDealService implements ImportDealService {
 
 	@Value("${csv.numofcolumns}")
 	private Integer numOfCols;
-	
+
 	@Value("${csv.separator}")
 	private String defaultSeparator;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void importCSVDeals(MultipartFile multipartFile, Boolean includeHeader, String separator)
 			throws FileNotFoundException, IOException {
@@ -85,7 +88,7 @@ public class DefaultImportDealService implements ImportDealService {
 						accumulativeMap.put(iso, amount);
 				});
 
-		importDealDao.importCSVDeals(rows, originalFilename);
+		importDealDao.insertCSVDeals(rows, originalFilename);
 		processDuration = System.currentTimeMillis() - processDuration;
 		Files.deleteIfExists(path);
 		LOG.info(String.format("Finish Importing CSV File to Deals, process Duration[%s]", processDuration));

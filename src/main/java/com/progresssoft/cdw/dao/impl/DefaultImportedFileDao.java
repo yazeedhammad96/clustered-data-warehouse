@@ -23,6 +23,9 @@ public class DefaultImportedFileDao implements ImportedFileDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void add(ImportedFile importedFile) {
 		StatelessSession statelessSession = sessionFactory.openStatelessSession();
@@ -32,6 +35,9 @@ public class DefaultImportedFileDao implements ImportedFileDao {
 		statelessSession.close();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public ImportedFile getByName(String name) {
 		StatelessSession statelessSession = sessionFactory.openStatelessSession();
@@ -45,6 +51,9 @@ public class DefaultImportedFileDao implements ImportedFileDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void delete(ImportedFile importedFile) {
 		StatelessSession statelessSession = sessionFactory.openStatelessSession();

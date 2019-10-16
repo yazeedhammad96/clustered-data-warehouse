@@ -25,6 +25,9 @@ public class DefaultAccumulativeDealsOfCurrencyService implements AccumulativeDe
 
 	private final static Logger LOG = LoggerFactory.getLogger(DefaultAccumulativeDealsOfCurrencyService.class);
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void add(AccumulativeDealsOfCurrency accumulativeDealsOfCurrency) {
 		if (accumulativeDealsOfCurrency == null
@@ -36,6 +39,9 @@ public class DefaultAccumulativeDealsOfCurrencyService implements AccumulativeDe
 		accumulativeDealsOfCurrencyDao.add(accumulativeDealsOfCurrency);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update(AccumulativeDealsOfCurrency accumulativeDealsOfCurrency) {
 		if (accumulativeDealsOfCurrency == null
@@ -47,6 +53,9 @@ public class DefaultAccumulativeDealsOfCurrencyService implements AccumulativeDe
 		accumulativeDealsOfCurrencyDao.update(accumulativeDealsOfCurrency);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public AccumulativeDealsOfCurrency getByCurrencyISOCode(String isoCode) {
 		if (StringUtils.isEmpty(isoCode)) {
@@ -56,6 +65,9 @@ public class DefaultAccumulativeDealsOfCurrencyService implements AccumulativeDe
 		return accumulativeDealsOfCurrencyDao.getByCurrencyISOCode(isoCode);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void delete(AccumulativeDealsOfCurrency accumulativeDealsOfCurrency) {
 		if (accumulativeDealsOfCurrency == null
@@ -65,7 +77,7 @@ public class DefaultAccumulativeDealsOfCurrencyService implements AccumulativeDe
 		LOG.info(String.format("Delete AccumulativeDealsOfCurrency with isoCurrency",
 				accumulativeDealsOfCurrency.getCurrencyISOCode()));
 		accumulativeDealsOfCurrencyDao.delete(accumulativeDealsOfCurrency);
-		
+
 	}
 
 }

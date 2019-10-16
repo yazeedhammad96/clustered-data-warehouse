@@ -25,6 +25,9 @@ public class DefaultValidDealDao implements ValidDealDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Boolean isExistsByDealId(String dealId) {
 		// TODO Auto-generated method stub
@@ -39,6 +42,9 @@ public class DefaultValidDealDao implements ValidDealDao {
 		return isExists;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public ValidDeal get(String dealId) {
 		// TODO Auto-generated method stub
@@ -53,6 +59,9 @@ public class DefaultValidDealDao implements ValidDealDao {
 		return list == null || list.get(0) == null ? null : (ValidDeal) list.get(0);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void add(ValidDeal deal) {
 		StatelessSession statelessSession = sessionFactory.openStatelessSession();
@@ -63,6 +72,9 @@ public class DefaultValidDealDao implements ValidDealDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void delete(ValidDeal deal) {
 		StatelessSession statelessSession = sessionFactory.openStatelessSession();

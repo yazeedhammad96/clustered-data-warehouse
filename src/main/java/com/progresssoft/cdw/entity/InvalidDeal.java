@@ -13,7 +13,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "not_valid_deal")
-public class NotValidDeal extends BaseEntity {
+public class InvalidDeal extends BaseEntity {
 
 	/**
 	 * 

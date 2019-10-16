@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.progresssoft.cdw.entity.NotValidDeal;
+import com.progresssoft.cdw.entity.InvalidDeal;
 import com.progresssoft.cdw.entity.ValidDeal;
 import com.progresssoft.cdw.enums.RowType;
 import com.progresssoft.cdw.util.CSVLoader;
@@ -73,9 +73,9 @@ public class ImportDealDaoTest {
 		assertEquals(1, rows.get(RowType.INVALID).size());
 
 		String fileName = Paths.get(TEST_FILE_LOC).getFileName().toString();
-		importDealDao.importCSVDeals(rows, fileName);
+		importDealDao.insertCSVDeals(rows, fileName);
 
-		NotValidDeal notValidDeal = invalidDealDao.get("4");
+		InvalidDeal notValidDeal = invalidDealDao.get("4");
 		assertNotNull(notValidDeal);
 		assertEquals("4", notValidDeal.getDealId());
 
@@ -93,7 +93,7 @@ public class ImportDealDaoTest {
 
 	}
 
-	private void deleteTestModels(NotValidDeal notValidDeal, ValidDeal validDeal1, ValidDeal validDeal2,
+	private void deleteTestModels(InvalidDeal notValidDeal, ValidDeal validDeal1, ValidDeal validDeal2,
 			ValidDeal validDeal3) {
 		invalidDealDao.delete(notValidDeal);
 		validDealDao.delete(validDeal1);
