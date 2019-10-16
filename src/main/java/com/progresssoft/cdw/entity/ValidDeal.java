@@ -7,7 +7,11 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
+
+import com.progresssoft.cdw.enums.ISOCurrencyCode;
 
 /**
  * @author Yazeed
@@ -23,10 +27,12 @@ public class ValidDeal extends BaseEntity {
 	private String dealId;
 
 	@Column(nullable = false)
-	private String fromCurrencyISOCode;
+    @Enumerated(EnumType.STRING)
+	private ISOCurrencyCode fromCurrencyISOCode;
 
 	@Column(nullable = false)
-	private String toCurrencyISOCode;
+    @Enumerated(EnumType.STRING)
+	private ISOCurrencyCode toCurrencyISOCode;
 
 	@Column(nullable = false)
 	private Timestamp dealTimestamp;
@@ -45,19 +51,19 @@ public class ValidDeal extends BaseEntity {
 		this.dealId = dealId;
 	}
 
-	public String getFromCurrencyISOCode() {
+	public ISOCurrencyCode getFromCurrencyISOCode() {
 		return fromCurrencyISOCode;
 	}
 
-	public void setFromCurrencyISOCode(String fromCurrencyISOCode) {
+	public void setFromCurrencyISOCode(ISOCurrencyCode fromCurrencyISOCode) {
 		this.fromCurrencyISOCode = fromCurrencyISOCode;
 	}
 
-	public String getToCurrencyISOCode() {
+	public ISOCurrencyCode getToCurrencyISOCode() {
 		return toCurrencyISOCode;
 	}
 
-	public void setToCurrencyISOCode(String toCurrencyISOCode) {
+	public void setToCurrencyISOCode(ISOCurrencyCode toCurrencyISOCode) {
 		this.toCurrencyISOCode = toCurrencyISOCode;
 	}
 

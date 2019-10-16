@@ -27,6 +27,11 @@ import com.progresssoft.cdw.enums.RowType;
 import com.progresssoft.cdw.util.CSVLoader;
 import com.progresssoft.cdw.validator.CSVDealValidator;
 
+/**
+ * 
+ * @author Yazeed
+ *
+ */
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class ImportDealDaoTest {
@@ -52,15 +57,15 @@ public class ImportDealDaoTest {
 
 		try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(TEST_FILE_LOC))) {
 			bufferedWriter.append("DEAL_ID,FROM_CURRENCY,TO_CURRENCY,TIMESTAMP,AMOUNT\n");
-			bufferedWriter.append("1,CNY,JOD,2019/11/02 10:50,1.00\n");
-			bufferedWriter.append("2,JOD,AED,2019/11/02 22:50,45.00\n");
-			bufferedWriter.append("3,JOD,AED,2019/11/02 22:50,45.00\n");
-			bufferedWriter.append("4,CNY,XXXX,2019/11/02 10:50,1.00\n");
+			bufferedWriter.append("TEST_ID_1,CNY,JOD,2019/11/02 10:50,1.00\n");
+			bufferedWriter.append("TEST_ID_2,JOD,AED,2019/11/02 22:50,45.00\n");
+			bufferedWriter.append("TEST_ID_3,JOD,AED,2019/11/02 22:50,45.00\n");
+			bufferedWriter.append("TEST_ID_4,CNY,XXXX,2019/11/02 10:50,1.00\n");
 		}
 	}
 
 	@Test
-	public void importDeals() throws FileNotFoundException, IOException {
+	public void importDealsAndAssertItsValues() throws FileNotFoundException, IOException {
 
 		Map<RowType, List<String[]>> rows = CSVLoader.getAll(Paths.get(TEST_FILE_LOC), ",", 5, true, csvDealValidator,
 				(x) -> {
@@ -75,19 +80,19 @@ public class ImportDealDaoTest {
 		String fileName = Paths.get(TEST_FILE_LOC).getFileName().toString();
 		importDealDao.insertCSVDeals(rows, fileName);
 
-		InvalidDeal notValidDeal = invalidDealDao.get("4");
+		InvalidDeal notValidDeal = invalidDealDao.get("TEST_ID_4");
 		assertNotNull(notValidDeal);
-		assertEquals("4", notValidDeal.getDealId());
+		assertEquals("TEST_ID_4", notValidDeal.getDealId());
 
-		ValidDeal validDeal1 = validDealDao.get("1");
-		ValidDeal validDeal2 = validDealDao.get("2");
-		ValidDeal validDeal3 = validDealDao.get("3");
+		ValidDeal validDeal1 = validDealDao.get("TEST_ID_1");
+		ValidDeal validDeal2 = validDealDao.get("TEST_ID_2");
+		ValidDeal validDeal3 = validDealDao.get("TEST_ID_3");
 		assertNotNull(validDeal1);
-		assertEquals("1", validDeal1.getDealId());
+		assertEquals("TEST_ID_1", validDeal1.getDealId());
 		assertNotNull(validDeal2);
-		assertEquals("2", validDeal2.getDealId());
+		assertEquals("TEST_ID_2", validDeal2.getDealId());
 		assertNotNull(validDeal3);
-		assertEquals("3", validDeal3.getDealId());
+		assertEquals("TEST_ID_3", validDeal3.getDealId());
 
 		deleteTestModels(notValidDeal, validDeal1, validDeal2, validDeal3);
 

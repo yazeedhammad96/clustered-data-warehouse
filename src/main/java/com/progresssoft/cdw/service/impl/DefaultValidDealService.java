@@ -14,12 +14,6 @@ import com.progresssoft.cdw.entity.ValidDeal;
 import com.progresssoft.cdw.service.ValidDealService;
 
 /**
- * @author Yazeed Hammad - yazeed.hammad@erabia.com
- *
- *         Oct 13, 2019
- */
-
-/**
  * @author yhammad
  *
  */
@@ -61,7 +55,7 @@ public class DefaultValidDealService implements ValidDealService {
 	 */
 	@Override
 	public void add(ValidDeal deal) {
-		if (deal == null || StringUtils.isEmpty(deal.getId())) {
+		if (deal == null || StringUtils.isEmpty(deal.getDealId())) {
 			throw new IllegalArgumentException("deal or it's id can't be null or empty");
 		}
 
@@ -74,7 +68,7 @@ public class DefaultValidDealService implements ValidDealService {
 	 */
 	@Override
 	public void delete(ValidDeal deal) {
-		if (deal == null || StringUtils.isEmpty(deal.getId())) {
+		if (deal == null || StringUtils.isEmpty(deal.getDealId())) {
 			throw new IllegalArgumentException("deal or it's id can't be null or empty");
 		}
 
